@@ -282,38 +282,41 @@ export default function Home() {
         <title>ConsulateNews - Hệ thống giám sát visa</title>
         <meta name="description" content="Hệ thống tổng hợp tin tức thị thực và lãnh sự toàn cầu." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet" />
       </Head>
 
       <style>{`
         *{box-sizing:border-box}
         html{scroll-behavior:smooth}
-        body{margin:0;background:#f8fafc;color:#172033;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+        body{margin:0;background:#f8fafc;color:#172033;font-family:"Be Vietnam Pro",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
         button,input{font:inherit}
         button{cursor:pointer}
         a{color:inherit;text-decoration:none}
         .page{min-height:100vh;background:#f8fafc}
         .nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid #edf1f5}
-        .nav-inner{max-width:1500px;margin:0 auto;min-height:78px;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-        .brand{border:0;background:transparent;display:flex;align-items:center;gap:10px;color:#cf7135;font-size:23px;font-weight:950;letter-spacing:0;padding:8px 0}
+        .nav-inner{max-width:1500px;margin:0 auto;min-height:78px;padding:12px 28px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:18px}
+        .brand{border:0;background:transparent;display:flex;align-items:center;gap:10px;color:#cf7135;font-size:23px;font-weight:950;letter-spacing:0;padding:8px 0;white-space:nowrap}
         .brand-mark{font-size:25px;filter:drop-shadow(0 5px 10px rgba(210,113,53,.25))}
-        .nav-links{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
-        .nav-link{border:0;background:transparent;color:#465268;border-radius:10px;padding:11px 18px;font-weight:900;font-size:15px}
+        .nav-links{display:grid;grid-template-columns:repeat(4,max-content);align-items:center;justify-content:end;gap:10px;min-width:0}
+        .nav-link{border:0;background:transparent;color:#465268;border-radius:10px;padding:10px 15px;font-weight:900;font-size:15px;white-space:nowrap;min-width:0}
         .nav-link:hover,.nav-link.on{background:#fff7eb;color:#ce7036}
-        .nav-link.outline{border:2px solid #171717;color:#ce7036;background:#fff}
-        .hero{position:relative;overflow:hidden;color:white;min-height:430px;background:#d87436}
+        .nav-link.outline{background:#fff7eb;color:#ce7036}
+        .hero{position:relative;overflow:hidden;color:white;min-height:395px;background:#d87436}
         .hero.compact{min-height:260px}
         .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:opacity 1.2s ease,transform 6s ease}
         .hero-bg.active{opacity:1;transform:scale(1.1)}
         .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(201,105,42,.92),rgba(214,128,58,.68) 45%,rgba(255,255,255,.76));z-index:1}
-        .hero-inner{position:relative;z-index:2;max-width:1500px;margin:0 auto;padding:78px 28px 86px;display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:32px;align-items:center}
+        .hero-inner{position:relative;z-index:2;max-width:1500px;margin:0 auto;padding:64px 28px 72px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:center}
         .hero.compact .hero-inner{padding:44px 28px 52px}
-        .hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(38px,5vw,72px);line-height:1.04;letter-spacing:0;margin:0 0 18px;max-width:860px}
-        .hero p{font-size:19px;line-height:1.6;margin:0;color:rgba(255,255,255,.92);max-width:780px;font-weight:650}
+        .hero h1{font-family:"Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(36px,4.1vw,62px);line-height:1.08;letter-spacing:0;margin:0 0 18px;max-width:820px;text-wrap:balance}
+        .hero p{font-size:18px;line-height:1.6;margin:0;color:rgba(255,255,255,.94);max-width:760px;font-weight:700}
         .hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:28px}
         .btn{border:0;background:#fff;color:#ce7036;border-radius:12px;padding:14px 20px;font-weight:950;box-shadow:0 18px 35px rgba(122,63,28,.16)}
         .btn.soft{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.38);box-shadow:none}
         .toolbar .btn.soft{background:#fff7eb;color:#ce7036;border-color:#f5bc73}
-        .hero-card{justify-self:end;width:250px;min-height:210px;border:1px solid rgba(255,255,255,.35);border-radius:22px;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);display:grid;place-items:center;text-align:center;padding:22px}
+        .hero-card{justify-self:end;width:230px;min-height:202px;border:1px solid rgba(255,255,255,.35);border-radius:22px;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);display:grid;place-items:center;text-align:center;padding:20px}
         .clock-face{width:138px;height:138px;border:8px solid #d57435;background:#fff;border-radius:50%;position:relative;margin:0 auto 14px}
         .clock-face::before{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;background:#d57435;border-radius:50%;transform:translate(-50%,-50%)}
         .hand{position:absolute;left:50%;top:50%;height:4px;transform-origin:left center;background:#1f2937;border-radius:999px}
@@ -322,13 +325,13 @@ export default function Home() {
         .clock-label{font-weight:950;text-transform:uppercase;color:#fff}
         .hero-country{margin-top:18px;display:inline-flex;border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.14);border-radius:999px;padding:9px 14px;font-size:13px;font-weight:900}
         .main{max-width:1500px;margin:0 auto;padding:34px 28px 72px}
-        .section-title{font-size:28px;margin:0 0 22px;font-weight:950;color:#101828}
+        .section-title{font-size:30px;margin:0 0 22px;font-weight:950;color:#101828}
         .home-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
         .category-card{border:1px solid #e2e8f0;background:#fff;border-radius:16px;overflow:hidden;text-align:left;box-shadow:0 18px 42px rgba(15,23,42,.06);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
         .category-card:hover{transform:translateY(-5px);box-shadow:0 24px 55px rgba(15,23,42,.12);border-color:#f5bc73}
         .category-img{height:184px;background-size:cover;background-position:center}
         .category-body{padding:22px}
-        .category-body h3{font-size:22px;margin:0 0 10px;color:#101828}
+        .category-body h3{font-size:22px;margin:0 0 10px;color:#101828;line-height:1.25}
         .category-body p{font-size:15px;line-height:1.55;color:#697386;margin:0}
         .toolbar{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 16px 40px rgba(15,23,42,.06);margin-bottom:18px}
         .search-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center}
@@ -354,7 +357,7 @@ export default function Home() {
         .show-all{width:100%;border:1px dashed #cfd8e3;background:#fff;border-radius:12px;padding:16px;font-weight:950;color:#465268;margin-top:18px}
         .show-all:hover{border-color:#f5bc73;color:#ce7036;background:#fffaf2}
         .panel{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:44px;box-shadow:0 18px 42px rgba(15,23,42,.05)}
-        .panel h2{font-family:Georgia,"Times New Roman",serif;color:#ce7036;font-size:36px;margin:0 0 12px}
+        .panel h2{font-family:"Playfair Display",Georgia,"Times New Roman",serif;color:#ce7036;font-size:36px;line-height:1.18;margin:0 0 12px;letter-spacing:0;text-wrap:balance}
         .panel p{font-size:17px;line-height:1.65;color:#697386}
         .procedure-list{border-left:4px solid #d57435;padding-left:22px;margin-top:30px;display:grid;gap:18px}
         .procedure-list b{color:#465268}
@@ -365,11 +368,12 @@ export default function Home() {
         .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#172033;color:white;border-radius:999px;padding:13px 20px;font-weight:900;box-shadow:0 16px 34px rgba(15,23,42,.22);z-index:60}
         .footer{border-top:1px solid #e2e8f0;background:#fff;text-align:center;color:#97a1b3;padding:25px;font-weight:750}
         @media(max-width:1000px){
+          .nav-inner{grid-template-columns:1fr}.nav-links{justify-content:stretch;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}.nav-link{text-align:center;padding:10px 8px;font-size:14px}
           .hero-inner{grid-template-columns:1fr}.hero-card{display:none}.home-grid,.article-grid{grid-template-columns:1fr 1fr}.gallery-grid{grid-template-columns:1fr 1fr}
         }
         @media(max-width:720px){
-          .nav-inner{padding:10px 14px;align-items:flex-start;gap:10px;flex-direction:column}.nav-links{width:100%;justify-content:space-between;gap:6px}.nav-link{flex:1;padding:9px 6px;font-size:13px}
-          .brand{font-size:20px}.hero{min-height:390px}.hero-inner{padding:48px 16px 62px}.hero h1{font-size:39px}.hero p{font-size:16px}
+          .nav-inner{padding:10px 14px;align-items:flex-start;gap:10px}.nav-links{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.nav-link{padding:9px 6px;font-size:13px}
+          .brand{font-size:20px}.hero{min-height:360px}.hero-inner{padding:42px 16px 56px}.hero h1{font-size:36px}.hero p{font-size:15px}
           .main{padding:24px 14px 52px}.home-grid,.article-grid,.gallery-grid{grid-template-columns:1fr}.search-row{grid-template-columns:1fr}.source-head{align-items:flex-start;flex-direction:column}
           .sitemap{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:26px}.panel h2{font-size:29px}.gallery-item{height:220px}
           .to-top{right:18px;bottom:18px}
