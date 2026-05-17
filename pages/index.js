@@ -413,6 +413,9 @@ export default function Home() {
   const [forwardStack, setForwardStack] = useState([]);
   const [customArticles, setCustomArticles] = useState([]);
   const [draftArticle, setDraftArticle] = useState({ title: '', url: '', country: 'my' });
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminLogin, setAdminLogin] = useState({ username: '', password: '' });
+  const [adminError, setAdminError] = useState('');
 
   useEffect(() => {
     setReadSet(readStoredSet(STORAGE_KEY));
@@ -425,6 +428,10 @@ export default function Home() {
       const savedArticles = JSON.parse(localStorage.getItem(CUSTOM_ARTICLES_KEY) || '[]');
       if (Array.isArray(savedArticles)) setCustomArticles(savedArticles);
     } catch {}
+    fetch('/api/admin-session')
+      .then((res) => res.json())
+      .then((session) => setIsAdmin(Boolean(session.isAdmin)))
+      .catch(() => setIsAdmin(false));
     loadNews();
 
     const imageTimer = setInterval(() => {
@@ -606,6 +613,28 @@ export default function Home() {
     setActiveAlbum(key);
   }
 
+  async function handleAdminLogin() {
+    setAdminError('');
+    try {
+      const res = await fetch('/api/admin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(adminLogin),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.error || 'Không thể đăng nhập');
+      setIsAdmin(true);
+      setAdminLogin({ username: '', password: '' });
+    } catch (error) {
+      setAdminError(error.message || 'Không thể đăng nhập');
+    }
+  }
+
+  async function handleAdminLogout() {
+    await fetch('/api/admin-logout', { method: 'POST' });
+    setIsAdmin(false);
+  }
+
   const manualSource = customArticles.length
     ? [{
         country: 'manual',
@@ -705,37 +734,40 @@ export default function Home() {
         button{cursor:pointer}
         a{color:inherit;text-decoration:none}
         .page{min-height:100vh;background:
-          radial-gradient(circle at 10% 8%,rgba(245,188,115,.22),transparent 26%),
-          radial-gradient(circle at 88% 18%,rgba(80,109,255,.12),transparent 28%),
-          linear-gradient(180deg,#fffaf6 0%,#f8fafc 34%,#f7f9fd 100%);font-size:var(--site-scale)}
-        .page::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(15,23,42,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.035) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.52),transparent 62%);z-index:0}
+          radial-gradient(circle at 8% 7%,rgba(245,188,115,.36),transparent 26%),
+          radial-gradient(circle at 84% 12%,rgba(45,75,255,.18),transparent 30%),
+          radial-gradient(circle at 70% 72%,rgba(14,165,233,.10),transparent 28%),
+          linear-gradient(180deg,#fff7ef 0%,#f8fafc 34%,#f4f7fb 100%);font-size:var(--site-scale)}
+        .page::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(15,23,42,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.045) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.55),transparent 66%);z-index:0}
+        .page::after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.46) 42%,transparent 58%);mix-blend-mode:overlay;animation:pageGlow 12s ease-in-out infinite;z-index:0}
+        @keyframes pageGlow{0%,100%{transform:translateX(-28%)}50%{transform:translateX(24%)}}
         .nav,.hero,.main,.footer{position:relative;z-index:1}
-        .nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid #edf1f5}
+        .nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.82);backdrop-filter:blur(24px);border-bottom:1px solid rgba(226,232,240,.78);box-shadow:0 14px 44px rgba(15,23,42,.06)}
         .nav-inner{max-width:1500px;margin:0 auto;min-height:78px;padding:12px 28px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:18px}
         .brand{border:0;background:transparent;display:flex;align-items:center;gap:10px;color:#cf7135;font-size:23px;font-weight:950;letter-spacing:0;padding:8px 0;white-space:nowrap}
         .brand-mark{font-size:25px;filter:drop-shadow(0 5px 10px rgba(210,113,53,.25))}
         .nav-links{display:grid;grid-template-columns:repeat(6,max-content);align-items:center;justify-content:end;gap:10px;min-width:0}
-        .nav-link{border:0;background:transparent;color:#465268;border-radius:10px;padding:10px 15px;font-weight:900;font-size:15px;white-space:nowrap;min-width:0}
-        .nav-link:hover,.nav-link.on{background:#fff7eb;color:#ce7036}
-        .nav-link.outline{background:#fff7eb;color:#ce7036}
-        .quick-nav{position:sticky;top:80px;z-index:35;max-width:1500px;margin:0 auto;padding:10px 28px 0;display:flex;gap:8px;justify-content:flex-end;pointer-events:none}
-        .quick-btn{pointer-events:auto;border:1px solid rgba(226,232,240,.82);background:rgba(255,255,255,.78);backdrop-filter:blur(16px);color:#465268;border-radius:999px;width:42px;height:42px;font-weight:950;box-shadow:0 12px 30px rgba(15,23,42,.08)}
+        .nav-link{border:1px solid transparent;background:transparent;color:#465268;border-radius:14px;padding:10px 15px;font-weight:900;font-size:15px;white-space:nowrap;min-width:0}
+        .nav-link:hover,.nav-link.on{background:linear-gradient(135deg,#fff7eb,#fff);border-color:#f7d7aa;color:#ce7036;box-shadow:0 12px 26px rgba(206,112,54,.12)}
+        .nav-link.outline{background:linear-gradient(135deg,#fff7eb,#fff);color:#ce7036}
+        .quick-nav{position:sticky;top:88px;z-index:38;max-width:1500px;margin:0 auto;padding:12px 28px 0;display:flex;gap:10px;justify-content:flex-end;pointer-events:none}
+        .quick-btn{pointer-events:auto;border:1px solid rgba(245,188,115,.82);background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(255,247,235,.92));backdrop-filter:blur(18px);color:#ce7036;border-radius:999px;min-width:126px;height:44px;padding:0 14px;font-weight:950;box-shadow:0 16px 36px rgba(206,112,54,.18)}
         .quick-btn:disabled{opacity:.36;cursor:not-allowed}
-        .quick-btn:not(:disabled):hover{color:#ce7036;border-color:#f5bc73;transform:translateY(-1px)}
-        .hero{position:relative;overflow:hidden;color:white;min-height:395px;background:#d87436}
+        .quick-btn:not(:disabled):hover{color:#101828;border-color:#ce7036;transform:translateY(-2px)}
+        .hero{position:relative;overflow:hidden;color:white;min-height:430px;background:#d87436;border-bottom:1px solid rgba(255,255,255,.5)}
         .hero.compact{min-height:260px}
         .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:opacity 1.2s ease,transform 6s ease}
         .hero-bg.active{opacity:1;transform:scale(1.1)}
-        .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(201,105,42,.92),rgba(214,128,58,.68) 45%,rgba(255,255,255,.76));z-index:1}
+        .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(150,72,28,.92),rgba(214,128,58,.68) 44%,rgba(255,255,255,.78));z-index:1}
         .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.2) 45%,transparent 70%);mix-blend-mode:soft-light;animation:sheen 10s ease-in-out infinite;z-index:2;pointer-events:none}
         @keyframes sheen{0%,100%{transform:translateX(-35%)}50%{transform:translateX(28%)}}
-        .hero-inner{position:relative;z-index:2;max-width:1500px;margin:0 auto;padding:64px 28px 72px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:center}
+        .hero-inner{position:relative;z-index:3;max-width:1500px;margin:0 auto;padding:70px 28px 76px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:center}
         .hero.compact .hero-inner{padding:44px 28px 52px}
         .hero-copy{text-align:var(--site-align)}
         .hero h1{font-family:"Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(36px,4.1vw,62px);line-height:1.08;letter-spacing:0;margin:0 0 18px;max-width:820px;text-wrap:balance}
         .hero p{font-size:18px;line-height:1.6;margin:0;color:rgba(255,255,255,.94);max-width:760px;font-weight:700}
         .hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:28px}
-        .btn{border:0;background:#fff;color:#ce7036;border-radius:12px;padding:14px 20px;font-weight:950;box-shadow:0 18px 35px rgba(122,63,28,.16)}
+        .btn{border:1px solid rgba(245,188,115,.7);background:linear-gradient(135deg,#fff,#fff7eb);color:#ce7036;border-radius:14px;padding:14px 20px;font-weight:950;box-shadow:0 18px 35px rgba(122,63,28,.16)}
         .btn.soft{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.38);box-shadow:none}
         .toolbar .btn.soft{background:#fff7eb;color:#ce7036;border-color:#f5bc73}
         .hero-card{justify-self:end;width:260px;min-height:185px;border:1px solid rgba(255,255,255,.35);border-radius:22px;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);display:grid;place-items:center;text-align:center;padding:20px}
@@ -748,10 +780,10 @@ export default function Home() {
         .section-title{font-size:30px;margin:0 0 22px;font-weight:950;color:#101828}
         .home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
         .home-lead{margin:-8px 0 24px;color:#697386;font-weight:650;line-height:1.7;max-width:760px;text-align:var(--site-align)}
-        .category-card{position:relative;border:1px solid rgba(226,232,240,.86);background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-radius:var(--card-radius);overflow:hidden;text-align:left;box-shadow:0 18px 42px rgba(15,23,42,.06);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
-        .category-card::after{content:"";position:absolute;inset:auto 18px 18px auto;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,rgba(245,188,115,.34),transparent 66%);pointer-events:none}
-        .category-card:hover{transform:translateY(-5px);box-shadow:0 24px 55px rgba(15,23,42,.12);border-color:#f5bc73}
-        .category-img{height:184px;background-size:cover;background-position:center}
+        .category-card{position:relative;border:1px solid rgba(226,232,240,.86);background:rgba(255,255,255,.78);backdrop-filter:blur(18px);border-radius:var(--card-radius);overflow:hidden;text-align:left;box-shadow:0 18px 42px rgba(15,23,42,.08);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+        .category-card::after{content:"";position:absolute;inset:auto 18px 18px auto;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(245,188,115,.38),transparent 66%);pointer-events:none}
+        .category-card:hover{transform:translateY(-7px);box-shadow:0 30px 70px rgba(15,23,42,.14);border-color:#f5bc73}
+        .category-img{height:210px;background-size:cover;background-position:center;filter:saturate(1.06) contrast(1.02)}
         .category-body{padding:22px}
         .category-body h3{font-size:22px;margin:0 0 10px;color:#101828;line-height:1.25}
         .category-body p{font-size:15px;line-height:1.55;color:#697386;margin:0}
@@ -778,7 +810,7 @@ export default function Home() {
         .article-foot{margin-top:auto;border-top:1px dashed #e5eaf0;padding-top:13px;color:#73809a;font-size:13px;font-weight:800}
         .show-all{width:100%;border:1px dashed #cfd8e3;background:#fff;border-radius:12px;padding:16px;font-weight:950;color:#465268;margin-top:18px}
         .show-all:hover{border-color:#f5bc73;color:#ce7036;background:#fffaf2}
-        .panel{background:#fff;border:1px solid #e2e8f0;border-radius:var(--card-radius);padding:44px;box-shadow:0 18px 42px rgba(15,23,42,.05);text-align:var(--site-align)}
+        .panel{background:rgba(255,255,255,.84);backdrop-filter:blur(18px);border:1px solid rgba(226,232,240,.84);border-radius:var(--card-radius);padding:44px;box-shadow:0 24px 60px rgba(15,23,42,.08);text-align:var(--site-align)}
         .panel h2{font-family:"Playfair Display",Georgia,"Times New Roman",serif;color:#ce7036;font-size:36px;line-height:1.18;margin:0 0 12px;letter-spacing:0;text-wrap:balance}
         .panel p{font-size:17px;line-height:1.65;color:#697386}
         .procedure-list{border-left:4px solid #d57435;padding-left:22px;margin-top:30px;display:grid;gap:18px}
@@ -809,6 +841,9 @@ export default function Home() {
         .admin-field input,.admin-field textarea,.admin-field select{border:1px solid #dfe7f0;border-radius:12px;padding:12px 13px;outline:none;color:#172033;background:#fff}
         .admin-field textarea{min-height:120px;resize:vertical}
         .admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+        .admin-lock{max-width:560px;margin:0 auto;text-align:left}
+        .admin-lock-card{border:1px solid rgba(245,188,115,.72);background:linear-gradient(135deg,#fff,#fff7eb);border-radius:22px;padding:26px;box-shadow:0 22px 52px rgba(206,112,54,.12)}
+        .admin-lock-card h2{margin-top:0}
         .empty,.loading{text-align:center;background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:52px 20px;color:#697386;font-weight:800}
         .to-top{position:fixed;right:28px;bottom:28px;width:56px;height:56px;border-radius:50%;border:0;background:#d57435;color:#fff;font-size:26px;box-shadow:0 18px 36px rgba(213,116,53,.35);z-index:50}
         .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#172033;color:white;border-radius:999px;padding:13px 20px;font-weight:900;box-shadow:0 16px 34px rgba(15,23,42,.22);z-index:60}
@@ -849,8 +884,8 @@ export default function Home() {
       </header>
 
       <div className="quick-nav" aria-label="Điều hướng nhanh">
-        <button className="quick-btn" onClick={goBack} disabled={backStack.length === 0} title="Quay trở lại">←</button>
-        <button className="quick-btn" onClick={goForward} disabled={forwardStack.length === 0} title="Quay tới">→</button>
+        <button className="quick-btn" onClick={goBack} disabled={backStack.length === 0} title="Quay trở lại">← Quay lại</button>
+        <button className="quick-btn" onClick={goForward} disabled={forwardStack.length === 0} title="Quay tới">Quay tới →</button>
       </div>
 
       <section className={`hero ${page === 'home' ? '' : 'compact'}`}>
@@ -1140,84 +1175,110 @@ export default function Home() {
 
         {page === 'admin' && (
           <section className="panel">
-            <h2>⚙️ Quản trị nội dung nhanh</h2>
-            <p>Phần này hoạt động như một bảng tùy biến đơn giản: chỉnh chữ, căn lề, cỡ font và bo góc giao diện ngay trên trình duyệt. Dữ liệu tin tức vẫn chạy tự động như cũ.</p>
-            <div className="admin-grid">
-              <div className="admin-field">
-                <label>Tiêu đề intro</label>
-                <textarea value={siteSettings.heroTitle} onChange={(event) => updateSiteSetting('heroTitle', event.target.value)} />
-              </div>
-              <div className="admin-field">
-                <label>Mô tả intro</label>
-                <textarea value={siteSettings.heroSubtitle} onChange={(event) => updateSiteSetting('heroSubtitle', event.target.value)} />
-              </div>
-              <div className="admin-field">
-                <label>Text trang chủ</label>
-                <textarea value={siteSettings.homeLead} onChange={(event) => updateSiteSetting('homeLead', event.target.value)} />
-              </div>
-              <div className="admin-field">
-                <label>Credit cuối trang</label>
-                <input value={siteSettings.designer} onChange={(event) => updateSiteSetting('designer', event.target.value)} />
-              </div>
-              <div className="admin-field">
-                <label>Căn lề chữ</label>
-                <select value={siteSettings.textAlign} onChange={(event) => updateSiteSetting('textAlign', event.target.value)}>
-                  <option value="left">Trái</option>
-                  <option value="center">Giữa</option>
-                  <option value="right">Phải</option>
-                  <option value="justify">Đều hai bên</option>
-                </select>
-              </div>
-              <div className="admin-field">
-                <label>Cỡ font tổng thể: {siteSettings.fontScale}%</label>
-                <input type="range" min="90" max="112" value={siteSettings.fontScale} onChange={(event) => updateSiteSetting('fontScale', Number(event.target.value))} />
-              </div>
-              <div className="admin-field">
-                <label>Bo góc card: {siteSettings.cardRadius}px</label>
-                <input type="range" min="6" max="28" value={siteSettings.cardRadius} onChange={(event) => updateSiteSetting('cardRadius', Number(event.target.value))} />
-              </div>
-            </div>
-            <div className="admin-actions">
-              <button className="btn" onClick={() => navigate('home')}>Xem trang chủ</button>
-              <button className="btn" onClick={resetSiteSettings}>Khôi phục mặc định</button>
-            </div>
-            <div style={{ height: 28 }} />
-            <h2>✍️ Can thiệp bài viết thủ công</h2>
-            <p>Thêm nhanh một bài/ghi chú để hiển thị trong tab Tin tức Lãnh sự. Phần này lưu trên trình duyệt quản trị, không làm ảnh hưởng luồng RSS tự động.</p>
-            <div className="admin-grid">
-              <div className="admin-field">
-                <label>Tiêu đề bài/ghi chú</label>
-                <input value={draftArticle.title} onChange={(event) => setDraftArticle({ ...draftArticle, title: event.target.value })} placeholder="Ví dụ: Lưu ý lịch hẹn Canada hôm nay..." />
-              </div>
-              <div className="admin-field">
-                <label>Link bài viết</label>
-                <input value={draftArticle.url} onChange={(event) => setDraftArticle({ ...draftArticle, url: event.target.value })} placeholder="https://..." />
-              </div>
-              <div className="admin-field">
-                <label>Gắn vào quốc gia</label>
-                <select value={draftArticle.country} onChange={(event) => setDraftArticle({ ...draftArticle, country: event.target.value })}>
-                  {data.sources.map((source) => (
-                    <option key={source.country} value={source.country}>{COUNTRY_LABELS[source.country] || source.country}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="admin-actions">
-              <button className="btn" onClick={addCustomArticle}>Thêm bài thủ công</button>
-              <button className="btn" onClick={() => navigate('news')}>Xem trong Tin tức</button>
-            </div>
-            {customArticles.length > 0 && (
-              <div className="info-list" style={{ marginTop: 18 }}>
-                {customArticles.map((article, index) => (
-                  <div className="info-card" key={`${article.title}-${index}`}>
-                    <b>{COUNTRY_LABELS[article.country] || article.country}</b>
-                    {article.title}
-                    <div className="admin-actions">
-                      <button className="btn" onClick={() => removeCustomArticle(index)}>Xóa</button>
-                    </div>
+            {!isAdmin ? (
+              <div className="admin-lock">
+                <div className="admin-lock-card">
+                  <h2>🔐 Khu vực quản trị</h2>
+                  <p>Chỉ tài khoản được anh cấp quyền mới chỉnh sửa được nội dung, giao diện và bài viết thủ công.</p>
+                  <div className="admin-field">
+                    <label>Tài khoản</label>
+                    <input value={adminLogin.username} onChange={(event) => setAdminLogin({ ...adminLogin, username: event.target.value })} placeholder="username" />
                   </div>
-                ))}
+                  <div className="admin-field" style={{ marginTop: 12 }}>
+                    <label>Mật khẩu</label>
+                    <input type="password" value={adminLogin.password} onChange={(event) => setAdminLogin({ ...adminLogin, password: event.target.value })} placeholder="password" onKeyDown={(event) => { if (event.key === 'Enter') handleAdminLogin(); }} />
+                  </div>
+                  {adminError && <p style={{ color: '#b42318', fontWeight: 900 }}>{adminError}</p>}
+                  <div className="admin-actions">
+                    <button className="btn" onClick={handleAdminLogin}>Đăng nhập quản trị</button>
+                  </div>
+                </div>
               </div>
+            ) : (
+              <>
+                <h2>⚙️ Quản trị nội dung nhanh</h2>
+                <p>Phần này hoạt động như một bảng tùy biến đơn giản: chỉnh chữ, căn lề, cỡ font và bo góc giao diện ngay trên trình duyệt. Dữ liệu tin tức vẫn chạy tự động như cũ.</p>
+                <div className="admin-actions">
+                  <button className="btn" onClick={handleAdminLogout}>Đăng xuất quản trị</button>
+                </div>
+                <div className="admin-grid">
+                  <div className="admin-field">
+                    <label>Tiêu đề intro</label>
+                    <textarea value={siteSettings.heroTitle} onChange={(event) => updateSiteSetting('heroTitle', event.target.value)} />
+                  </div>
+                  <div className="admin-field">
+                    <label>Mô tả intro</label>
+                    <textarea value={siteSettings.heroSubtitle} onChange={(event) => updateSiteSetting('heroSubtitle', event.target.value)} />
+                  </div>
+                  <div className="admin-field">
+                    <label>Text trang chủ</label>
+                    <textarea value={siteSettings.homeLead} onChange={(event) => updateSiteSetting('homeLead', event.target.value)} />
+                  </div>
+                  <div className="admin-field">
+                    <label>Credit cuối trang</label>
+                    <input value={siteSettings.designer} onChange={(event) => updateSiteSetting('designer', event.target.value)} />
+                  </div>
+                  <div className="admin-field">
+                    <label>Căn lề chữ</label>
+                    <select value={siteSettings.textAlign} onChange={(event) => updateSiteSetting('textAlign', event.target.value)}>
+                      <option value="left">Trái</option>
+                      <option value="center">Giữa</option>
+                      <option value="right">Phải</option>
+                      <option value="justify">Đều hai bên</option>
+                    </select>
+                  </div>
+                  <div className="admin-field">
+                    <label>Cỡ font tổng thể: {siteSettings.fontScale}%</label>
+                    <input type="range" min="90" max="112" value={siteSettings.fontScale} onChange={(event) => updateSiteSetting('fontScale', Number(event.target.value))} />
+                  </div>
+                  <div className="admin-field">
+                    <label>Bo góc card: {siteSettings.cardRadius}px</label>
+                    <input type="range" min="6" max="28" value={siteSettings.cardRadius} onChange={(event) => updateSiteSetting('cardRadius', Number(event.target.value))} />
+                  </div>
+                </div>
+                <div className="admin-actions">
+                  <button className="btn" onClick={() => navigate('home')}>Xem trang chủ</button>
+                  <button className="btn" onClick={resetSiteSettings}>Khôi phục mặc định</button>
+                </div>
+                <div style={{ height: 28 }} />
+                <h2>✍️ Can thiệp bài viết thủ công</h2>
+                <p>Thêm nhanh một bài/ghi chú để hiển thị trong tab Tin tức Lãnh sự. Phần này lưu trên trình duyệt quản trị, không làm ảnh hưởng luồng RSS tự động.</p>
+                <div className="admin-grid">
+                  <div className="admin-field">
+                    <label>Tiêu đề bài/ghi chú</label>
+                    <input value={draftArticle.title} onChange={(event) => setDraftArticle({ ...draftArticle, title: event.target.value })} placeholder="Ví dụ: Lưu ý lịch hẹn Canada hôm nay..." />
+                  </div>
+                  <div className="admin-field">
+                    <label>Link bài viết</label>
+                    <input value={draftArticle.url} onChange={(event) => setDraftArticle({ ...draftArticle, url: event.target.value })} placeholder="https://..." />
+                  </div>
+                  <div className="admin-field">
+                    <label>Gắn vào quốc gia</label>
+                    <select value={draftArticle.country} onChange={(event) => setDraftArticle({ ...draftArticle, country: event.target.value })}>
+                      {data.sources.map((source) => (
+                        <option key={source.country} value={source.country}>{COUNTRY_LABELS[source.country] || source.country}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="admin-actions">
+                  <button className="btn" onClick={addCustomArticle}>Thêm bài thủ công</button>
+                  <button className="btn" onClick={() => navigate('news')}>Xem trong Tin tức</button>
+                </div>
+                {customArticles.length > 0 && (
+                  <div className="info-list" style={{ marginTop: 18 }}>
+                    {customArticles.map((article, index) => (
+                      <div className="info-card" key={`${article.title}-${index}`}>
+                        <b>{COUNTRY_LABELS[article.country] || article.country}</b>
+                        {article.title}
+                        <div className="admin-actions">
+                          <button className="btn" onClick={() => removeCustomArticle(index)}>Xóa</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </section>
         )}
