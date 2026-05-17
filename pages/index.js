@@ -73,6 +73,111 @@ const GALLERY_IMAGES = [
   'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=900&q=82',
 ];
 
+const DESTINATION_ALBUMS = {
+  japan: {
+    title: 'Nhật Bản',
+    flag: '🇯🇵',
+    mood: 'Đền cổ, phố đêm, đô thị hiện đại và mùa hoa.',
+    images: [
+      'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&q=82',
+      'https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=900&q=82',
+      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=900&q=82',
+      'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=900&q=82',
+      'https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=900&q=82',
+      'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=900&q=82',
+      'https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=900&q=82',
+      'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=900&q=82',
+      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=900&q=82',
+      'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=900&q=82',
+    ],
+  },
+  usa: {
+    title: 'Mỹ',
+    flag: '🇺🇸',
+    mood: 'Thành phố lớn, công viên quốc gia, bờ Tây và bờ Đông.',
+    images: [
+      'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=900&q=82',
+      'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=900&q=82',
+      'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=900&q=82',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&q=82',
+      'https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?w=900&q=82',
+      'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=900&q=82',
+      'https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=900&q=82',
+      'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=900&q=82',
+      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=82',
+      'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=900&q=82',
+    ],
+  },
+  australia: {
+    title: 'Úc',
+    flag: '🇦🇺',
+    mood: 'Biển, skyline, đại học, cảng và thiên nhiên rộng mở.',
+    images: [
+      'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=900&q=82',
+      'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=900&q=82',
+      'https://images.unsplash.com/photo-1624138784614-87fd1b6528f8?w=900&q=82',
+      'https://images.unsplash.com/photo-1524293581917-878a6d017c71?w=900&q=82',
+      'https://images.unsplash.com/photo-1549180030-48bf079fb38a?w=900&q=82',
+      'https://images.unsplash.com/photo-1529108190281-9a4f620bc2d8?w=900&q=82',
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=82',
+      'https://images.unsplash.com/photo-1516941064643-74aacd84843c?w=900&q=82',
+      'https://images.unsplash.com/photo-1528072164453-f4e8ef0d475a?w=900&q=82',
+      'https://images.unsplash.com/photo-1493375366763-3ed5e0e6d8ec?w=900&q=82',
+    ],
+  },
+  canada: {
+    title: 'Canada',
+    flag: '🇨🇦',
+    mood: 'Thiên nhiên lạnh, thành phố sạch, hồ lớn và rừng núi.',
+    images: [
+      'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=900&q=82',
+      'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=900&q=82',
+      'https://images.unsplash.com/photo-1609954584977-747e9ce78b78?w=900&q=82',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=82',
+      'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=900&q=82',
+      'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=900&q=82',
+      'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?w=900&q=82',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&q=82',
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=82',
+      'https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=900&q=82',
+    ],
+  },
+  europe: {
+    title: 'Châu Âu',
+    flag: '🇪🇺',
+    mood: 'Schengen, phố cổ, bảo tàng, quảng trường và kiến trúc.',
+    images: [
+      'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=900&q=82',
+      'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=82',
+      'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=82',
+      'https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?w=900&q=82',
+      'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=900&q=82',
+      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=900&q=82',
+      'https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=900&q=82',
+      'https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=900&q=82',
+      'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=900&q=82',
+      'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=900&q=82',
+    ],
+  },
+  korea: {
+    title: 'Hàn Quốc',
+    flag: '🇰🇷',
+    mood: 'Seoul hiện đại, văn hóa, học tập, làm việc và giải trí.',
+    images: [
+      'https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=900&q=82',
+      'https://images.unsplash.com/photo-1538485399081-7c8ed1f9f152?w=900&q=82',
+      'https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=900&q=82',
+      'https://images.unsplash.com/photo-1534274867514-d5b47ef89ed7?w=900&q=82',
+      'https://images.unsplash.com/photo-1506816561089-5cc37b3aa9b0?w=900&q=82',
+      'https://images.unsplash.com/photo-1598890777032-bde835ba27c2?w=900&q=82',
+      'https://images.unsplash.com/photo-1578637387939-43c525550085?w=900&q=82',
+      'https://images.unsplash.com/photo-1521208916309-4a8f5e8e4b1c?w=900&q=82',
+      'https://images.unsplash.com/photo-1558979158-65a1eaa08691?w=900&q=82',
+      'https://images.unsplash.com/photo-1540960228859-3f2f9c8b9f9f?w=900&q=82',
+    ],
+  },
+};
+
 const COUNTRY_LABELS = {
   my: 'Mỹ',
   nhat: 'Nhật Bản',
@@ -303,6 +408,9 @@ export default function Home() {
   const [siteSettings, setSiteSettings] = useState(DEFAULT_SITE_SETTINGS);
   const [activeVfs, setActiveVfs] = useState(VFS_CENTRES[0].key);
   const [vfsTab, setVfsTab] = useState('overview');
+  const [activeAlbum, setActiveAlbum] = useState('japan');
+  const [backStack, setBackStack] = useState([]);
+  const [forwardStack, setForwardStack] = useState([]);
   const [customArticles, setCustomArticles] = useState([]);
   const [draftArticle, setDraftArticle] = useState({ title: '', url: '', country: 'my' });
 
@@ -367,7 +475,47 @@ export default function Home() {
     }
   }
 
+  function viewSnapshot() {
+    return { page, activeCountry, activeVfs, vfsTab, activeAlbum };
+  }
+
+  function applySnapshot(snapshot) {
+    setPage(snapshot.page);
+    setActiveCountry(snapshot.activeCountry);
+    setActiveVfs(snapshot.activeVfs);
+    setVfsTab(snapshot.vfsTab);
+    setActiveAlbum(snapshot.activeAlbum);
+  }
+
+  function rememberCurrent() {
+    setBackStack((stack) => [...stack, viewSnapshot()].slice(-24));
+    setForwardStack([]);
+  }
+
+  function goBack() {
+    setBackStack((stack) => {
+      if (stack.length === 0) return stack;
+      const previous = stack[stack.length - 1];
+      setForwardStack((future) => [viewSnapshot(), ...future].slice(0, 24));
+      applySnapshot(previous);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return stack.slice(0, -1);
+    });
+  }
+
+  function goForward() {
+    setForwardStack((future) => {
+      if (future.length === 0) return future;
+      const next = future[0];
+      setBackStack((stack) => [...stack, viewSnapshot()].slice(-24));
+      applySnapshot(next);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return future.slice(1);
+    });
+  }
+
   function navigate(nextPage) {
+    rememberCurrent();
     if (nextPage === 'home') {
       setActiveCountry('all');
       setSearch('');
@@ -433,12 +581,29 @@ export default function Home() {
   }
 
   function selectCountry(country) {
+    rememberCurrent();
     setActiveCountry(country);
     setPage('news');
     setExpandedSources({});
     setTimeout(() => {
       document.getElementById('news-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 80);
+  }
+
+  function selectVfs(key) {
+    rememberCurrent();
+    setActiveVfs(key);
+    setVfsTab('overview');
+  }
+
+  function selectVfsTab(key) {
+    rememberCurrent();
+    setVfsTab(key);
+  }
+
+  function selectAlbum(key) {
+    rememberCurrent();
+    setActiveAlbum(key);
   }
 
   const manualSource = customArticles.length
@@ -458,6 +623,7 @@ export default function Home() {
   }, 0);
   const selectedSource = data.sources.find((source) => source.country === activeCountry);
   const selectedVfs = VFS_CENTRES.find((item) => item.key === activeVfs) || VFS_CENTRES[0];
+  const selectedAlbum = DESTINATION_ALBUMS[activeAlbum] || DESTINATION_ALBUMS.japan;
 
   const filteredSources = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -538,7 +704,12 @@ export default function Home() {
         button,input{font:inherit}
         button{cursor:pointer}
         a{color:inherit;text-decoration:none}
-        .page{min-height:100vh;background:#f8fafc;font-size:var(--site-scale)}
+        .page{min-height:100vh;background:
+          radial-gradient(circle at 10% 8%,rgba(245,188,115,.22),transparent 26%),
+          radial-gradient(circle at 88% 18%,rgba(80,109,255,.12),transparent 28%),
+          linear-gradient(180deg,#fffaf6 0%,#f8fafc 34%,#f7f9fd 100%);font-size:var(--site-scale)}
+        .page::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(15,23,42,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.035) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.52),transparent 62%);z-index:0}
+        .nav,.hero,.main,.footer{position:relative;z-index:1}
         .nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid #edf1f5}
         .nav-inner{max-width:1500px;margin:0 auto;min-height:78px;padding:12px 28px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:18px}
         .brand{border:0;background:transparent;display:flex;align-items:center;gap:10px;color:#cf7135;font-size:23px;font-weight:950;letter-spacing:0;padding:8px 0;white-space:nowrap}
@@ -547,11 +718,17 @@ export default function Home() {
         .nav-link{border:0;background:transparent;color:#465268;border-radius:10px;padding:10px 15px;font-weight:900;font-size:15px;white-space:nowrap;min-width:0}
         .nav-link:hover,.nav-link.on{background:#fff7eb;color:#ce7036}
         .nav-link.outline{background:#fff7eb;color:#ce7036}
+        .quick-nav{position:sticky;top:80px;z-index:35;max-width:1500px;margin:0 auto;padding:10px 28px 0;display:flex;gap:8px;justify-content:flex-end;pointer-events:none}
+        .quick-btn{pointer-events:auto;border:1px solid rgba(226,232,240,.82);background:rgba(255,255,255,.78);backdrop-filter:blur(16px);color:#465268;border-radius:999px;width:42px;height:42px;font-weight:950;box-shadow:0 12px 30px rgba(15,23,42,.08)}
+        .quick-btn:disabled{opacity:.36;cursor:not-allowed}
+        .quick-btn:not(:disabled):hover{color:#ce7036;border-color:#f5bc73;transform:translateY(-1px)}
         .hero{position:relative;overflow:hidden;color:white;min-height:395px;background:#d87436}
         .hero.compact{min-height:260px}
         .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:opacity 1.2s ease,transform 6s ease}
         .hero-bg.active{opacity:1;transform:scale(1.1)}
         .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(201,105,42,.92),rgba(214,128,58,.68) 45%,rgba(255,255,255,.76));z-index:1}
+        .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.2) 45%,transparent 70%);mix-blend-mode:soft-light;animation:sheen 10s ease-in-out infinite;z-index:2;pointer-events:none}
+        @keyframes sheen{0%,100%{transform:translateX(-35%)}50%{transform:translateX(28%)}}
         .hero-inner{position:relative;z-index:2;max-width:1500px;margin:0 auto;padding:64px 28px 72px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:center}
         .hero.compact .hero-inner{padding:44px 28px 52px}
         .hero-copy{text-align:var(--site-align)}
@@ -571,7 +748,8 @@ export default function Home() {
         .section-title{font-size:30px;margin:0 0 22px;font-weight:950;color:#101828}
         .home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
         .home-lead{margin:-8px 0 24px;color:#697386;font-weight:650;line-height:1.7;max-width:760px;text-align:var(--site-align)}
-        .category-card{border:1px solid #e2e8f0;background:#fff;border-radius:var(--card-radius);overflow:hidden;text-align:left;box-shadow:0 18px 42px rgba(15,23,42,.06);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+        .category-card{position:relative;border:1px solid rgba(226,232,240,.86);background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-radius:var(--card-radius);overflow:hidden;text-align:left;box-shadow:0 18px 42px rgba(15,23,42,.06);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+        .category-card::after{content:"";position:absolute;inset:auto 18px 18px auto;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,rgba(245,188,115,.34),transparent 66%);pointer-events:none}
         .category-card:hover{transform:translateY(-5px);box-shadow:0 24px 55px rgba(15,23,42,.12);border-color:#f5bc73}
         .category-img{height:184px;background-size:cover;background-position:center}
         .category-body{padding:22px}
@@ -607,6 +785,12 @@ export default function Home() {
         .procedure-list b{color:#465268}
         .gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
         .gallery-item{height:210px;background-size:cover;background-position:center;border-radius:13px;border:1px solid #e2e8f0;box-shadow:0 12px 28px rgba(15,23,42,.06)}
+        .album-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:22px 0}
+        .album-tab{border:1px solid #e2e8f0;background:#fff;border-radius:14px;padding:13px 12px;font-weight:950;color:#465268;text-align:left;box-shadow:0 10px 22px rgba(15,23,42,.04)}
+        .album-tab.on{background:#172033;color:#fff;border-color:#172033}
+        .album-hero{border:1px solid #e2e8f0;background:linear-gradient(135deg,#fff,#fff7eb);border-radius:18px;padding:20px;margin:6px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+        .album-hero h3{margin:0;font-size:24px;color:#101828}
+        .album-hero p{margin:6px 0 0;color:#697386;font-weight:700}
         .vfs-shell{display:grid;grid-template-columns:280px minmax(0,1fr);gap:20px}
         .vfs-list{display:grid;gap:10px;align-content:start}
         .vfs-country{border:1px solid #e2e8f0;background:#fff;border-radius:14px;padding:14px;text-align:left;font-weight:950;color:#465268;box-shadow:0 10px 24px rgba(15,23,42,.04)}
@@ -640,7 +824,7 @@ export default function Home() {
           .brand{font-size:20px}.hero{min-height:360px}.hero-inner{padding:42px 16px 56px}.hero h1{font-size:36px}.hero p{font-size:15px}
           .main{padding:24px 14px 52px}.home-grid,.article-grid,.gallery-grid{grid-template-columns:1fr}.search-row{grid-template-columns:1fr}.source-head{align-items:flex-start;flex-direction:column}
           .sitemap{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:26px}.panel h2{font-size:29px}.gallery-item{height:220px}
-          .to-top{right:18px;bottom:18px}
+          .quick-nav{top:122px;padding:8px 14px 0}.to-top{right:18px;bottom:18px}.album-hero{align-items:flex-start;flex-direction:column}
         }
       `}</style>
 
@@ -663,6 +847,11 @@ export default function Home() {
           </nav>
         </div>
       </header>
+
+      <div className="quick-nav" aria-label="Điều hướng nhanh">
+        <button className="quick-btn" onClick={goBack} disabled={backStack.length === 0} title="Quay trở lại">←</button>
+        <button className="quick-btn" onClick={goForward} disabled={forwardStack.length === 0} title="Quay tới">→</button>
+      </div>
 
       <section className={`hero ${page === 'home' ? '' : 'compact'}`}>
         {HERO_IMAGES.map((image, index) => (
@@ -814,10 +1003,7 @@ export default function Home() {
                 <button
                   key={centre.key}
                   className={`vfs-country ${activeVfs === centre.key ? 'on' : ''}`}
-                  onClick={() => {
-                    setActiveVfs(centre.key);
-                    setVfsTab('overview');
-                  }}
+                  onClick={() => selectVfs(centre.key)}
                 >
                   {centre.flag} {centre.country}
                   <div className="source-sub">{centre.partner}</div>
@@ -840,7 +1026,7 @@ export default function Home() {
                   <button
                     key={key}
                     className={`vfs-tab ${vfsTab === key ? 'on' : ''}`}
-                    onClick={() => setVfsTab(key)}
+                    onClick={() => selectVfsTab(key)}
                   >
                     {label}
                   </button>
@@ -918,10 +1104,35 @@ export default function Home() {
         {page === 'gallery' && (
           <section className="panel">
             <h2>🖼️ Không Gian Tư Liệu Hình Ảnh Quốc Tế</h2>
-            <p>Thư viện ảnh landscape thực tế phục vụ thiết kế nội dung truyền thông tư vấn.</p>
+            <p>Thư viện ảnh landscape thực tế phục vụ thiết kế nội dung truyền thông tư vấn, chia theo từng destination để chọn nhanh đúng ngữ cảnh.</p>
+            <div className="album-tabs">
+              {Object.entries(DESTINATION_ALBUMS).map(([key, album]) => (
+                <button
+                  key={key}
+                  className={`album-tab ${activeAlbum === key ? 'on' : ''}`}
+                  onClick={() => selectAlbum(key)}
+                >
+                  {album.flag} {album.title}
+                </button>
+              ))}
+            </div>
+            <div className="album-hero">
+              <div>
+                <h3>{selectedAlbum.flag} Album {selectedAlbum.title}</h3>
+                <p>{selectedAlbum.mood}</p>
+              </div>
+              <span className="btn soft" style={{ background: '#fff7eb', color: '#ce7036', borderColor: '#f5bc73' }}>
+                {selectedAlbum.images.length} pictures
+              </span>
+            </div>
             <div className="gallery-grid">
-              {GALLERY_IMAGES.map((image) => (
-                <div className="gallery-item" key={image} style={{ backgroundImage: `url(${image})` }} />
+              {selectedAlbum.images.map((image, index) => (
+                <div
+                  className="gallery-item"
+                  key={`${activeAlbum}-${image}-${index}`}
+                  style={{ backgroundImage: `url(${image})` }}
+                  title={`${selectedAlbum.title} ${index + 1}`}
+                />
               ))}
             </div>
           </section>
