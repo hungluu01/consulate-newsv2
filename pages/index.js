@@ -207,6 +207,60 @@ const PROCEDURE_ITEMS = [
   },
 ];
 
+const SCHENGEN_VFS_ADDRESS = 'REE Tower, tầng 3B, 9 Đoàn Văn Bơ, Phường 13, Quận 4, TP.HCM';
+const SCHENGEN_VFS_MAP = 'https://www.google.com/maps/search/?api=1&query=REE+Tower+9+Doan+Van+Bo+District+4+Ho+Chi+Minh';
+
+function makeSchengenCentre({ key, country, flag, code }) {
+  return {
+    key,
+    country,
+    flag,
+    partner: `VFS Global Schengen - ${country}`,
+    city: 'TP.HCM',
+    address: SCHENGEN_VFS_ADDRESS,
+    phone: 'Theo tổng đài/biểu mẫu hỗ trợ trên trang VFS Global của từng quốc gia',
+    email: 'Theo biểu mẫu hỗ trợ VFS Global',
+    hours: 'Theo lịch hẹn và khung giờ trung tâm VFS tại 9 Đoàn Văn Bơ',
+    overview: `${country} thuộc khối Schengen. Hồ sơ được quản lý theo checklist của cơ quan lãnh sự và luồng đặt lịch VFS Global tại TP.HCM.`,
+    documents: 'Hộ chiếu, đơn Schengen, ảnh, bảo hiểm du lịch, lịch trình, chứng minh tài chính/công việc, giấy tờ mục đích chuyến đi và checklist theo từng nước.',
+    appointment: `https://visa.vfsglobal.com/vnm/en/${code}/`,
+    news: `https://visa.vfsglobal.com/vnm/en/${code}/`,
+    map: SCHENGEN_VFS_MAP,
+    source: `VFS Global ${country} Vietnam`,
+  };
+}
+
+const SCHENGEN_VFS_CENTRES = [
+  { key: 'austria', country: 'Áo', flag: '🇦🇹', code: 'aut' },
+  { key: 'belgium', country: 'Bỉ', flag: '🇧🇪', code: 'bel' },
+  { key: 'bulgaria', country: 'Bulgaria', flag: '🇧🇬', code: 'bgr' },
+  { key: 'croatia', country: 'Croatia', flag: '🇭🇷', code: 'hrv' },
+  { key: 'czech', country: 'Séc', flag: '🇨🇿', code: 'cze' },
+  { key: 'denmark', country: 'Đan Mạch', flag: '🇩🇰', code: 'dnk' },
+  { key: 'estonia', country: 'Estonia', flag: '🇪🇪', code: 'est' },
+  { key: 'finland', country: 'Phần Lan', flag: '🇫🇮', code: 'fin' },
+  { key: 'germany', country: 'Đức', flag: '🇩🇪', code: 'deu' },
+  { key: 'greece', country: 'Hy Lạp', flag: '🇬🇷', code: 'grc' },
+  { key: 'hungary', country: 'Hungary', flag: '🇭🇺', code: 'hun' },
+  { key: 'iceland', country: 'Iceland', flag: '🇮🇸', code: 'isl' },
+  { key: 'italy', country: 'Ý', flag: '🇮🇹', code: 'ita' },
+  { key: 'latvia', country: 'Latvia', flag: '🇱🇻', code: 'lva' },
+  { key: 'liechtenstein', country: 'Liechtenstein', flag: '🇱🇮', code: 'lie' },
+  { key: 'lithuania', country: 'Lithuania', flag: '🇱🇹', code: 'ltu' },
+  { key: 'luxembourg', country: 'Luxembourg', flag: '🇱🇺', code: 'lux' },
+  { key: 'malta', country: 'Malta', flag: '🇲🇹', code: 'mlt' },
+  { key: 'netherlands', country: 'Hà Lan', flag: '🇳🇱', code: 'nld' },
+  { key: 'norway', country: 'Na Uy', flag: '🇳🇴', code: 'nor' },
+  { key: 'poland', country: 'Ba Lan', flag: '🇵🇱', code: 'pol' },
+  { key: 'portugal', country: 'Bồ Đào Nha', flag: '🇵🇹', code: 'prt' },
+  { key: 'romania', country: 'Romania', flag: '🇷🇴', code: 'rou' },
+  { key: 'slovakia', country: 'Slovakia', flag: '🇸🇰', code: 'svk' },
+  { key: 'slovenia', country: 'Slovenia', flag: '🇸🇮', code: 'svn' },
+  { key: 'spain', country: 'Tây Ban Nha', flag: '🇪🇸', code: 'esp' },
+  { key: 'sweden', country: 'Thụy Điển', flag: '🇸🇪', code: 'swe' },
+  { key: 'switzerland', country: 'Thụy Sĩ', flag: '🇨🇭', code: 'che' },
+].map(makeSchengenCentre);
+
 const VFS_CENTRES = [
   {
     key: 'canada',
@@ -216,31 +270,14 @@ const VFS_CENTRES = [
     city: 'TP.HCM',
     address: 'Tầng 9, Tháp Cienco 4, 180 Nguyễn Thị Minh Khai, Phường Xuân Hòa, TP.HCM',
     phone: '+84 28 3622 0988',
-    email: 'Liên hệ qua biểu mẫu/email trên trang VFS Canada',
+    email: 'Liên hệ qua biểu mẫu/email trên trang VAC Canada hoặc Canada.ca',
     hours: 'Thứ Hai - Thứ Sáu, 09:00 - 17:00',
-    overview: 'Trung tâm hỗ trợ sinh trắc học, đặt lịch hẹn, nhận hồ sơ/hộ chiếu cho các diện thị thực tạm trú, học tập và làm việc theo quy trình IRCC.',
+    overview: 'Canada VAC hỗ trợ sinh trắc học, đặt lịch hẹn, nhận hồ sơ/hộ chiếu và các dịch vụ theo quy trình IRCC.',
     documents: 'BIL nếu có, hộ chiếu, thư yêu cầu nộp hộ chiếu/tài liệu bổ sung, giấy hẹn và giấy tờ theo checklist IRCC.',
     appointment: 'https://visa.vfsglobal.com/vnm/en/can/',
-    news: 'https://visa.vfsglobal.com/vnm/en/can/',
+    news: 'https://www.canada.ca/en.html',
     map: 'https://www.google.com/maps/search/?api=1&query=180+Nguyen+Thi+Minh+Khai+Cienco+4+Tower+Ho+Chi+Minh',
-    source: 'VFS Canada Vietnam',
-  },
-  {
-    key: 'uk',
-    country: 'Anh Quốc',
-    flag: '🇬🇧',
-    partner: 'UK Visa Application Centre',
-    city: 'TP.HCM',
-    address: 'Xem địa chỉ mới nhất trong mục Find a centre của VFS UKVI Vietnam',
-    phone: 'Theo kênh hỗ trợ VFS/UKVI trên trang chính thức',
-    email: 'Theo biểu mẫu hỗ trợ VFS/UKVI',
-    hours: 'Cần kiểm tra theo lịch hẹn đang mở trên VFS UKVI',
-    overview: 'VFS Global là đối tác chính thức của UK Visas and Immigration, hỗ trợ đặt lịch và tiếp nhận sinh trắc học/hồ sơ theo quy trình UKVI.',
-    documents: 'Checklist UKVI, hộ chiếu, giấy hẹn, tài liệu hỗ trợ đã tải lên hoặc bản giấy theo yêu cầu từng diện.',
-    appointment: 'https://visa.vfsglobal.com/vnm/en/gbr/',
-    news: 'https://visa.vfsglobal.com/vnm/en/gbr/',
-    map: 'https://www.google.com/maps/search/?api=1&query=VFS+Global+UK+Visa+Application+Centre+Ho+Chi+Minh',
-    source: 'VFS UKVI Vietnam',
+    source: 'Canada.ca / VFS Canada Vietnam',
   },
   {
     key: 'australia',
@@ -252,12 +289,29 @@ const VFS_CENTRES = [
     phone: 'Theo kênh hỗ trợ VFS Australia',
     email: 'Theo biểu mẫu hỗ trợ VFS Australia',
     hours: 'Theo lịch hẹn và giờ mở cửa hiển thị trong Find a centre',
-    overview: 'VFS Global hỗ trợ dịch vụ sinh trắc học và các dịch vụ liên quan cho Bộ Nội vụ Úc tại Việt Nam.',
+    overview: 'VFS Global hỗ trợ dịch vụ sinh trắc học và dịch vụ liên quan cho Bộ Nội vụ Úc tại Việt Nam.',
     documents: 'Hộ chiếu, giấy hẹn sinh trắc học, thư yêu cầu sinh trắc học và giấy tờ theo hồ sơ ImmiAccount.',
     appointment: 'https://visa.vfsglobal.com/vnm/en/aus/',
-    news: 'https://visa.vfsglobal.com/vnm/en/aus/',
+    news: 'https://www.homeaffairs.gov.au/#',
     map: 'https://www.google.com/maps/search/?api=1&query=Australian+Biometric+Collection+Centre+VFS+Ho+Chi+Minh',
-    source: 'VFS Australia Vietnam',
+    source: 'Home Affairs Australia / VFS Australia Vietnam',
+  },
+  {
+    key: 'uk',
+    country: 'Anh Quốc',
+    flag: '🇬🇧',
+    partner: 'UK Visa Application Centre',
+    city: 'TP.HCM',
+    address: 'Theo trang Find a centre của VFS UKVI Vietnam',
+    phone: 'Theo kênh hỗ trợ VFS/UKVI trên trang chính thức',
+    email: 'Theo biểu mẫu hỗ trợ VFS/UKVI',
+    hours: 'Theo lịch hẹn đang mở trên VFS UKVI',
+    overview: 'VFS Global là đối tác của UK Visas and Immigration, hỗ trợ đặt lịch và tiếp nhận sinh trắc học/hồ sơ theo quy trình UKVI.',
+    documents: 'Checklist UKVI, hộ chiếu, giấy hẹn, tài liệu hỗ trợ đã tải lên hoặc bản giấy theo yêu cầu từng diện.',
+    appointment: 'https://visa.vfsglobal.com/vnm/en/gbr/',
+    news: 'https://visa.vfsglobal.com/vnm/en/gbr/',
+    map: 'https://www.google.com/maps/search/?api=1&query=VFS+Global+UK+Visa+Application+Centre+Ho+Chi+Minh',
+    source: 'VFS UKVI Vietnam',
   },
   {
     key: 'japan',
@@ -268,7 +322,7 @@ const VFS_CENTRES = [
     address: 'Toà nhà President, Lầu 11, 93 Nguyễn Du, phường Bến Nghé, Quận 1, TP.HCM',
     phone: 'Theo kênh hỗ trợ trên trang VFS Nhật Bản',
     email: 'Theo biểu mẫu hỗ trợ trên trang VFS Nhật Bản',
-    hours: 'Hoạt động 08:30 - 12:00 và 13:00 - 16:00; nộp hồ sơ 08:30 - 12:00 và 13:00 - 15:00',
+    hours: '08:30 - 12:00 và 13:00 - 16:00; nộp hồ sơ 08:30 - 12:00 và 13:00 - 15:00',
     overview: 'Trung tâm tiếp nhận hồ sơ visa Nhật Bản tại TP.HCM, có phí dịch vụ theo thông báo VFS.',
     documents: 'Hộ chiếu, đơn xin visa, ảnh, giấy tờ chứng minh mục đích chuyến đi và checklist theo diện nộp.',
     appointment: 'https://visa.vfsglobal.com/vnm/vi/jpn/',
@@ -277,56 +331,23 @@ const VFS_CENTRES = [
     source: 'VFS Japan Vietnam',
   },
   {
-    key: 'switzerland',
-    country: 'Thụy Sĩ',
-    flag: '🇨🇭',
-    partner: 'Switzerland Visa Application Centre',
-    city: 'TP.HCM',
-    address: 'REE Tower, 3B Floor, 9 Đoàn Văn Bơ, Phường 13, Quận 4, TP.HCM',
-    phone: 'Theo kênh hỗ trợ trên trang VFS Switzerland',
-    email: 'Theo biểu mẫu hỗ trợ VFS Switzerland',
-    hours: 'Thứ Hai - Thứ Sáu, 08:30 - 12:00 và 13:00 - 16:30',
-    overview: 'Trung tâm tiếp nhận hồ sơ Schengen Thụy Sĩ tại TP.HCM; một số dịch vụ có phí trung tâm bổ sung.',
-    documents: 'Hộ chiếu, đơn Schengen, ảnh, bảo hiểm du lịch, lịch trình, chứng minh tài chính/công việc và giấy tờ theo checklist.',
-    appointment: 'https://visa.vfsglobal.com/vnm/en/che/',
-    news: 'https://visa.vfsglobal.com/vnm/en/che/',
-    map: 'https://www.google.com/maps/search/?api=1&query=REE+Tower+9+Doan+Van+Bo+District+4+Ho+Chi+Minh',
-    source: 'VFS Switzerland Vietnam',
-  },
-  {
-    key: 'netherlands',
-    country: 'Hà Lan',
-    flag: '🇳🇱',
-    partner: 'Netherlands Visa Application Centre',
-    city: 'TP.HCM',
-    address: 'Xem địa chỉ mới nhất trong mục Find a centre của VFS Hà Lan Vietnam',
-    phone: 'Theo kênh hỗ trợ VFS Netherlands',
-    email: 'Theo biểu mẫu hỗ trợ VFS Netherlands',
-    hours: 'Theo lịch trung tâm VFS Hà Lan tại TP.HCM',
-    overview: 'VFS Global là đối tác tiếp nhận dịch vụ lãnh sự cho Vương quốc Hà Lan tại Việt Nam; tại TP.HCM có đại diện cho Slovenia và Luxembourg diện ngắn hạn.',
-    documents: 'Hồ sơ Schengen, bảo hiểm, lịch trình, chứng minh tài chính/công việc và giấy tờ theo checklist từng diện.',
-    appointment: 'https://visa.vfsglobal.com/vnm/en/nld/',
-    news: 'https://visa.vfsglobal.com/vnm/en/nld/',
-    map: 'https://www.google.com/maps/search/?api=1&query=VFS+Global+Netherlands+Ho+Chi+Minh',
-    source: 'VFS Netherlands Vietnam',
-  },
-  {
     key: 'france',
     country: 'Pháp',
     flag: '🇫🇷',
-    partner: 'Ghi chú: hồ sơ Pháp thường theo France-Visas/TLScontact, không mặc định là VFS',
+    partner: 'TLScontact France Visa Application Centre',
     city: 'TP.HCM',
-    address: 'Cần kiểm tra trên France-Visas hoặc TLScontact trước khi tư vấn lịch hẹn',
+    address: 'TLScontact tại Vincom Center Đồng Khởi, Quận 1, TP.HCM',
     phone: 'Theo kênh chính thức France-Visas/TLScontact',
     email: 'Theo biểu mẫu chính thức France-Visas/TLScontact',
-    hours: 'Theo lịch hẹn trung tâm được chỉ định',
-    overview: 'Mục này được giữ để anh quản lý nhu cầu khách hỏi visa Pháp, nhưng cần xác minh nhà cung cấp tiếp nhận hiện hành trước khi đặt lịch.',
+    hours: 'Theo lịch hẹn TLScontact',
+    overview: 'Pháp dùng France-Visas và TLScontact tại TP.HCM; mục này tách riêng khỏi cụm VFS Schengen để tránh nhầm luồng đặt lịch.',
     documents: 'Hồ sơ Schengen Pháp, bảo hiểm, lịch trình, chứng minh tài chính/công việc và giấy tờ theo checklist France-Visas.',
     appointment: 'https://france-visas.gouv.fr/',
     news: 'https://france-visas.gouv.fr/',
-    map: 'https://www.google.com/maps/search/?api=1&query=France+Visa+Application+Centre+Ho+Chi+Minh',
-    source: 'France-Visas / cần xác minh nhà tiếp nhận',
+    map: 'https://www.google.com/maps/search/?api=1&query=TLScontact+Vincom+Center+Dong+Khoi+Ho+Chi+Minh',
+    source: 'France-Visas / TLScontact',
   },
+  ...SCHENGEN_VFS_CENTRES,
 ];
 
 function readStoredSet(key) {
@@ -408,6 +429,7 @@ export default function Home() {
   const [siteSettings, setSiteSettings] = useState(DEFAULT_SITE_SETTINGS);
   const [activeVfs, setActiveVfs] = useState(VFS_CENTRES[0].key);
   const [vfsTab, setVfsTab] = useState('overview');
+  const [vfsGroup, setVfsGroup] = useState('all');
   const [activeAlbum, setActiveAlbum] = useState('japan');
   const [backStack, setBackStack] = useState([]);
   const [forwardStack, setForwardStack] = useState([]);
@@ -653,6 +675,11 @@ export default function Home() {
   const selectedSource = data.sources.find((source) => source.country === activeCountry);
   const selectedVfs = VFS_CENTRES.find((item) => item.key === activeVfs) || VFS_CENTRES[0];
   const selectedAlbum = DESTINATION_ALBUMS[activeAlbum] || DESTINATION_ALBUMS.japan;
+  const visibleVfsCentres = VFS_CENTRES.filter((centre) => {
+    if (vfsGroup === 'schengen') return SCHENGEN_VFS_CENTRES.some((item) => item.key === centre.key);
+    if (vfsGroup === 'other') return !SCHENGEN_VFS_CENTRES.some((item) => item.key === centre.key);
+    return true;
+  });
 
   const filteredSources = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -750,15 +777,17 @@ export default function Home() {
         .nav-link{border:1px solid transparent;background:transparent;color:#465268;border-radius:14px;padding:10px 15px;font-weight:900;font-size:15px;white-space:nowrap;min-width:0}
         .nav-link:hover,.nav-link.on{background:linear-gradient(135deg,#fff7eb,#fff);border-color:#f7d7aa;color:#ce7036;box-shadow:0 12px 26px rgba(206,112,54,.12)}
         .nav-link.outline{background:linear-gradient(135deg,#fff7eb,#fff);color:#ce7036}
-        .quick-nav{position:sticky;top:88px;z-index:38;max-width:1500px;margin:0 auto;padding:12px 28px 0;display:flex;gap:10px;justify-content:flex-end;pointer-events:none}
-        .quick-btn{pointer-events:auto;border:1px solid rgba(245,188,115,.82);background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(255,247,235,.92));backdrop-filter:blur(18px);color:#ce7036;border-radius:999px;min-width:126px;height:44px;padding:0 14px;font-weight:950;box-shadow:0 16px 36px rgba(206,112,54,.18)}
+        .quick-nav{position:fixed;inset:0;z-index:42;pointer-events:none}
+        .quick-btn{position:absolute;top:50%;transform:translateY(-50%);pointer-events:auto;border:1px solid rgba(245,188,115,.72);background:rgba(255,255,255,.72);backdrop-filter:blur(18px);color:#ce7036;border-radius:999px;width:42px;height:42px;padding:0;font-size:20px;font-weight:950;box-shadow:0 16px 36px rgba(206,112,54,.18)}
+        .quick-left{left:16px}
+        .quick-right{right:16px}
         .quick-btn:disabled{opacity:.36;cursor:not-allowed}
         .quick-btn:not(:disabled):hover{color:#101828;border-color:#ce7036;transform:translateY(-2px)}
-        .hero{position:relative;overflow:hidden;color:white;min-height:430px;background:#d87436;border-bottom:1px solid rgba(255,255,255,.5)}
+        .hero{position:relative;overflow:hidden;color:white;min-height:430px;background:#151022;border-bottom:1px solid rgba(255,255,255,.5)}
         .hero.compact{min-height:260px}
         .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:opacity 1.2s ease,transform 6s ease}
         .hero-bg.active{opacity:1;transform:scale(1.1)}
-        .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(150,72,28,.92),rgba(214,128,58,.68) 44%,rgba(255,255,255,.78));z-index:1}
+        .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(35,19,39,.92),rgba(206,112,54,.72) 43%,rgba(255,255,255,.78));z-index:1}
         .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.2) 45%,transparent 70%);mix-blend-mode:soft-light;animation:sheen 10s ease-in-out infinite;z-index:2;pointer-events:none}
         @keyframes sheen{0%,100%{transform:translateX(-35%)}50%{transform:translateX(28%)}}
         .hero-inner{position:relative;z-index:3;max-width:1500px;margin:0 auto;padding:70px 28px 76px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:center}
@@ -780,6 +809,11 @@ export default function Home() {
         .section-title{font-size:30px;margin:0 0 22px;font-weight:950;color:#101828}
         .home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
         .home-lead{margin:-8px 0 24px;color:#697386;font-weight:650;line-height:1.7;max-width:760px;text-align:var(--site-align)}
+        .future-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 26px}
+        .future-tile{position:relative;overflow:hidden;border:1px solid rgba(245,188,115,.54);border-radius:18px;background:linear-gradient(135deg,rgba(255,255,255,.86),rgba(255,247,235,.72));backdrop-filter:blur(16px);padding:18px;box-shadow:0 18px 40px rgba(206,112,54,.09)}
+        .future-tile::after{content:"";position:absolute;right:-22px;top:-22px;width:78px;height:78px;border-radius:50%;background:radial-gradient(circle,rgba(206,112,54,.22),transparent 68%)}
+        .future-tile b{display:block;font-size:26px;line-height:1;color:#101828}
+        .future-tile span{display:block;margin-top:8px;color:#697386;font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.06em}
         .category-card{position:relative;border:1px solid rgba(226,232,240,.86);background:rgba(255,255,255,.78);backdrop-filter:blur(18px);border-radius:var(--card-radius);overflow:hidden;text-align:left;box-shadow:0 18px 42px rgba(15,23,42,.08);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
         .category-card::after{content:"";position:absolute;inset:auto 18px 18px auto;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(245,188,115,.38),transparent 66%);pointer-events:none}
         .category-card:hover{transform:translateY(-7px);box-shadow:0 30px 70px rgba(15,23,42,.14);border-color:#f5bc73}
@@ -823,9 +857,13 @@ export default function Home() {
         .album-hero{border:1px solid #e2e8f0;background:linear-gradient(135deg,#fff,#fff7eb);border-radius:18px;padding:20px;margin:6px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
         .album-hero h3{margin:0;font-size:24px;color:#101828}
         .album-hero p{margin:6px 0 0;color:#697386;font-weight:700}
-        .vfs-shell{display:grid;grid-template-columns:280px minmax(0,1fr);gap:20px}
-        .vfs-list{display:grid;gap:10px;align-content:start}
-        .vfs-country{border:1px solid #e2e8f0;background:#fff;border-radius:14px;padding:14px;text-align:left;font-weight:950;color:#465268;box-shadow:0 10px 24px rgba(15,23,42,.04)}
+        .vfs-shell{display:grid;grid-template-columns:310px minmax(0,1fr);gap:20px}
+        .vfs-list{display:grid;gap:10px;align-content:start;max-height:780px;overflow:auto;padding-right:4px}
+        .vfs-list::-webkit-scrollbar{width:6px}.vfs-list::-webkit-scrollbar-thumb{background:#f5bc73;border-radius:999px}
+        .vfs-filter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:4px;position:sticky;top:0;z-index:2;background:rgba(248,250,252,.92);backdrop-filter:blur(10px);padding-bottom:8px}
+        .vfs-filter button{border:1px solid #e2e8f0;background:#fff;border-radius:999px;padding:9px 8px;font-size:12px;font-weight:950;color:#465268}
+        .vfs-filter button.on{background:#172033;color:#fff;border-color:#172033}
+        .vfs-country{border:1px solid rgba(226,232,240,.9);background:rgba(255,255,255,.86);border-radius:14px;padding:14px;text-align:left;font-weight:950;color:#465268;box-shadow:0 10px 24px rgba(15,23,42,.04)}
         .vfs-country.on{border-color:#f5bc73;background:#fff7eb;color:#ce7036}
         .vfs-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
         .vfs-tab{border:1px solid #e2e8f0;background:#fff;border-radius:999px;padding:10px 14px;font-weight:900;color:#465268}
@@ -851,15 +889,15 @@ export default function Home() {
         .designer{margin-top:8px;color:#ce7036;font-weight:950}
         @media(max-width:1000px){
           .nav-inner{grid-template-columns:1fr}.nav-links{justify-content:stretch;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}.nav-link{text-align:center;padding:10px 8px;font-size:14px}
-          .hero-inner{grid-template-columns:1fr}.hero-card{display:none}.home-grid,.article-grid{grid-template-columns:1fr 1fr}.gallery-grid{grid-template-columns:1fr 1fr}
+          .hero-inner{grid-template-columns:1fr}.hero-card{display:none}.home-grid,.article-grid{grid-template-columns:1fr 1fr}.gallery-grid{grid-template-columns:1fr 1fr}.future-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
           .vfs-shell,.vfs-grid,.admin-grid{grid-template-columns:1fr}
         }
         @media(max-width:720px){
           .nav-inner{padding:10px 14px;align-items:flex-start;gap:10px}.nav-links{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.nav-link{padding:9px 6px;font-size:12px}
           .brand{font-size:20px}.hero{min-height:360px}.hero-inner{padding:42px 16px 56px}.hero h1{font-size:36px}.hero p{font-size:15px}
-          .main{padding:24px 14px 52px}.home-grid,.article-grid,.gallery-grid{grid-template-columns:1fr}.search-row{grid-template-columns:1fr}.source-head{align-items:flex-start;flex-direction:column}
+          .main{padding:24px 14px 52px}.home-grid,.article-grid,.gallery-grid,.future-strip{grid-template-columns:1fr}.search-row{grid-template-columns:1fr}.source-head{align-items:flex-start;flex-direction:column}
           .sitemap{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:26px}.panel h2{font-size:29px}.gallery-item{height:220px}
-          .quick-nav{top:122px;padding:8px 14px 0}.to-top{right:18px;bottom:18px}.album-hero{align-items:flex-start;flex-direction:column}
+          .quick-btn{top:auto;bottom:82px}.quick-left{left:14px}.quick-right{right:14px}.to-top{right:18px;bottom:18px}.album-hero{align-items:flex-start;flex-direction:column}
         }
       `}</style>
 
@@ -884,8 +922,8 @@ export default function Home() {
       </header>
 
       <div className="quick-nav" aria-label="Điều hướng nhanh">
-        <button className="quick-btn" onClick={goBack} disabled={backStack.length === 0} title="Quay trở lại">← Quay lại</button>
-        <button className="quick-btn" onClick={goForward} disabled={forwardStack.length === 0} title="Quay tới">Quay tới →</button>
+        <button className="quick-btn quick-left" onClick={goBack} disabled={backStack.length === 0} title="Quay trở lại">‹</button>
+        <button className="quick-btn quick-right" onClick={goForward} disabled={forwardStack.length === 0} title="Quay tới">›</button>
       </div>
 
       <section className={`hero ${page === 'home' ? '' : 'compact'}`}>
@@ -922,6 +960,24 @@ export default function Home() {
         {page === 'home' && (
           <>
             <p className="home-lead">{siteSettings.homeLead}</p>
+            <div className="future-strip">
+              <div className="future-tile">
+                <b>{totalArticles}</b>
+                <span>Bài tin đang theo dõi</span>
+              </div>
+              <div className="future-tile">
+                <b>{data.sources.length}</b>
+                <span>Nguồn lãnh sự tự động</span>
+              </div>
+              <div className="future-tile">
+                <b>{VFS_CENTRES.length}</b>
+                <span>Hồ sơ VFS/TLS/VAC</span>
+              </div>
+              <div className="future-tile">
+                <b>{Object.keys(DESTINATION_ALBUMS).length}</b>
+                <span>Album destination</span>
+              </div>
+            </div>
             <div className="home-grid">
               {categoryCards.map((card) => (
                 <button className="category-card" key={card.page} onClick={() => navigate(card.page)}>
@@ -1034,7 +1090,22 @@ export default function Home() {
         {page === 'vfs' && (
           <section className="vfs-shell">
             <aside className="vfs-list">
-              {VFS_CENTRES.map((centre) => (
+              <div className="vfs-filter">
+                {[
+                  ['all', 'Tất cả'],
+                  ['schengen', 'Schengen'],
+                  ['other', 'Khác'],
+                ].map(([key, label]) => (
+                  <button
+                    key={key}
+                    className={vfsGroup === key ? 'on' : ''}
+                    onClick={() => setVfsGroup(key)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {visibleVfsCentres.map((centre) => (
                 <button
                   key={centre.key}
                   className={`vfs-country ${activeVfs === centre.key ? 'on' : ''}`}
